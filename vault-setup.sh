@@ -4,6 +4,7 @@
 export VAULT_ADDR='https://localhost:8200'
 export VAULT_TOKEN='myroot'
 export VAULT_SKIP_VERIFY=1  # Skip SSL verification for self-signed certs
+export VAULT_SKIP_VERIFY=true
 
 echo "Setting up Vault for certificate authentication..."
 

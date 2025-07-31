@@ -10,6 +10,7 @@ services:
       VAULT_ADDR: https://0.0.0.0:8200
       # Enable TLS in dev mode
       VAULT_DEV_TLS: 1
+      VAULT_SKIP_VERIFY: "true"
     cap_add:
       - IPC_LOCK
     volumes:
