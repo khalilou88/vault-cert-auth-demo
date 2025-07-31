@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: vault-cert-auth-demo
+  cloud:
+    vault:
+      # Vault server configuration
+      uri: https://localhost:8200
+      connection-timeout: 5000
+      read-timeout: 15000
+
+      # Certificate authentication configuration
+      authentication: CERT
+      ssl:
+        key-store: classpath:keystore.jks
+        key-store-password: changeit
+        key-store-type: JKS
+        cert-auth-path: cert
+        # Optional: trust store configuration
+        trust-store: classpath:truststore.jks
+        trust-store-password: changeit
+        trust-store-type: JKS
+
+      # KV configuration
+      kv:
+        enabled: true
+        backend: secret
+        profile-separator: '/'
+        default-context: application
+        application-name: vault-demo
+
+      # Generic secret backend configuration
+      generic:
+        enabled: true
+        backend: secret
+        profile-separator: '/'
+        default-context: application
+        application-name: vault-demo
+
+server:
+  port: 8080
+
+# Logging configuration
+logging:
+  level:
+    org.springframework.cloud.vault: DEBUG
+    org.springframework.vault: DEBUG
+    root: INFO
+
+# Management endpoints
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,vault
+  endpoint:
+    health:
+      show-details: always
