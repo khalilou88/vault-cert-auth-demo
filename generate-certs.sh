@@ -48,3 +48,9 @@ keytool -import -trustcacerts -alias vault-server \
     -keystore truststore.jks \
     -storepass changeit \
     -noprompt
+
+
+cp keystore.jks src/main/resources/
+
+ # Copy to resources
+ cp truststore.jks src/main/resources/

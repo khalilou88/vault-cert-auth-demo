@@ -1,8 +1,9 @@
 #!/bin/bash
 
 # Set Vault address and token
-export VAULT_ADDR='http://localhost:8200'
+export VAULT_ADDR='https://localhost:8200'
 export VAULT_TOKEN='myroot'
+export VAULT_SKIP_VERIFY=1  # Skip SSL verification for self-signed certs
 
 echo "Setting up Vault for certificate authentication..."
 
