@@ -1,20 +1,26 @@
 #!/bin/bash
 
-# Generate private key for client certificate
-openssl genrsa -out client-key.pem 2048
+echo "Creating JKS keystore directly with keytool..."
 
-# Generate certificate signing request
-openssl req -new -key client-key.pem -out client-csr.pem -subj "/CN=vault-demo-client"
+# Generate key pair directly in JKS format
+keytool -genkeypair \
+    -alias vault-demo \
+    -keyalg RSA \
+    -keysize 2048 \
+    -validity 365 \
+    -keystore keystore.jks \
+    -storepass changeit \
+    -keypass changeit \
+    -dname "CN=vault-demo-client,O=VaultDemo,C=US" \
+    -noprompt
 
-# Generate self-signed client certificate
-openssl x509 -req -in client-csr.pem -signkey client-key.pem -out client-cert.pem -days 365
+# Export the certificate for Vault configuration
+keytool -exportcert \
+    -alias vault-demo \
+    -keystore keystore.jks \
+    -storepass changeit \
+    -file client-cert.pem \
+    -rfc
 
-# Create PKCS12 keystore
-openssl pkcs12 -export -in client-cert.pem -inkey client-key.pem -out keystore.p12 -name vault-demo -password pass:changeit
-
-# Convert PKCS12 to JKS format
-keytool -importkeystore -srckeystore keystore.p12 -srcstoretype PKCS12 -srcstorepass changeit -destkeystore keystore.jks -deststoretype JKS -deststorepass changeit
-
-echo "Certificates generated:"
-echo "- client-cert.pem (for Vault configuration)"
-echo "- keystore.jks (for Spring Boot application)"
+echo "Files created:"
+ls -la keystore.jks client-cert.pem
