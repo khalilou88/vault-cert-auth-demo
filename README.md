@@ -502,3 +502,26 @@ spring:
 6. **Test**: Use the provided endpoints to verify Vault integration
 
 This demo shows a complete working example of Spring Cloud Vault with certificate authentication, including proper SSL configuration, secret management, and REST endpoints for testing.
+
+
+
+
+
+
+
+
+
+# Copy to resources
+cp truststore.jks src/main/resources/
+
+
+# Test if Vault is running with SSL
+curl -k https://localhost:8200/v1/sys/health
+
+
+
+
+
+
+
+
