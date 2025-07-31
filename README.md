@@ -419,7 +419,7 @@ This project demonstrates how to configure Spring Boot with HashiCorp Vault usin
 
 2. **Start Vault Server**
    ```bash
-   docker-compose up -d vault
+   docker compose up -d vault
    ```
 
 3. **Configure Vault**
